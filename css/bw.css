@@ -1,0 +1,30 @@
+
+
+.container {
+    margin: 20px;
+}
+
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.controls {
+    display: flex;
+    flex-direction: row;
+}
+
+.sorting {
+    display: flex;
+    flex-basis: 80%;
+}
+
+.sorter {
+    flex-grow: 1;
+}
+.filtering {
+    display: flex;
+    flex-basis: 20%;
+    justify-content: flex-end;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <link rel="stylesheet" href="./css/bw.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <header class="container">
+        <button class="command">
+            Create new Note
+        </button>
+        <select name="theme" class="dropDown">
+            <option value="bw" selected>BlackWhite-Style</option>
+            <option value="funky">Funky-Style</option>
+        </select>
+    </header>
+    <main class="container">
+        <div class="controls">
+            <div class="sorting">
+                <button class="sorter">
+                    By finish Date
+                </button>
+                <button class="sorter">
+                    By created Date
+                </button>
+                <button class="sorter">
+                    By Importance
+                </button>
+            </div>
+            <div class="filtering">
+                <button class="filter">
+                    Show finished
+                </button>
+            </div>
+        </div>
+        <div class="items">
+            <ul>
+                <li>
+                    <div class="item">
+                        <div class=" itemHeader">
+                            <label>Due Date</label>
+                            <label>Title</label>
+                            <label>Importance</label>
+                        </div>
+                        <label for="finished">finished</label>
+                        <input type="checkbox" id="finished" checked>
+                        <label for="itemText">Titel</label>
+                        <textarea id="itemText">item</textarea>
+                        <button class="command">
+                            Edit
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; Strato</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/bw.css">
+    <title>New Note</title>
+</head>
+<body>
+<form class="container">
+    <label class="form_title label" for="title">Titel</label>
+    <input class="form_title_input" type="text" name="title" id="title" value="">
+    <label class="form_text label" for="textArea">Beschreibung</label>
+    <textarea class="form_text_input" id="textArea"></textarea>
+    <label class="form_importance label" for="importance">Wichtigkeit</label>
+    <div class="form_importance_container">
+        <input class="form_importance_input" type="radio" name="importance" value="not_so" id="importance"  />
+        <input class="form_importance_input" type="radio" name="importance" value="a_little"  />
+        <input class="form_importance_input" type="radio" name="importance" value="quite" />
+        <input class="form_importance_input" type="radio" name="importance" value="important" />
+        <input class="form_importance_input" type="radio" name="importance" value="very_important" />
+    </div>
+    <label class="form_due label" for="due_date">Erledigt bis</label>
+    <input class="form_due_input" type="date" name="due_date" id="due_date" value="">
+    <button type="submit" class="command">Speichern</button>
+    <button type="reset" class="command">Cancel</button>
+</form>
+
+</body>
+</html>

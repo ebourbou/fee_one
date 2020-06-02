@@ -3,61 +3,68 @@
 <head>
     <link rel="stylesheet" href="./css/bw.css">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>FEE One Note App</title>
 </head>
 <body>
     <header class="container">
-        <button class="command">
-            Create new Note
-        </button>
-        <select name="theme" class="dropDown">
-            <option value="bw" selected>BlackWhite-Style</option>
-            <option value="funky">Funky-Style</option>
+        <a href="form.html">
+            <button class="command">
+                Create new Note
+            </button>
+        </a>
+        <select name="theme" id="theme">
+            <option value="boring" selected>Black'n White</option>
+            <option value="funky">Funky Style</option>
         </select>
     </header>
-    <main class="container">
-        <div class="controls">
+    <main >
+        <div class="controls container">
             <div class="sorting">
-                <button class="sorter">
+                <button class="command sorter">
                     By finish Date
                 </button>
-                <button class="sorter">
+                <button class="command sorter">
                     By created Date
                 </button>
-                <button class="sorter">
+                <button class="command sorter">
                     By Importance
                 </button>
             </div>
             <div class="filtering">
-                <button class="filter">
+                <button class="command filter">
                     Show finished
                 </button>
             </div>
         </div>
         <div class="items">
-            <ul>
-                <li>
-                    <div class="item">
-                        <div class=" itemHeader">
-                            <label>Due Date</label>
-                            <label>Title</label>
-                            <label>Importance</label>
-                        </div>
-                        <label for="finished">finished</label>
-                        <input type="checkbox" id="finished" checked>
-                        <label for="itemText">Titel</label>
-                        <textarea id="itemText">item</textarea>
-                        <button class="command">
-                            Edit
-                        </button>
-                    </div>
-                </li>
-            </ul>
+            <div class="item container">
+                <label class="item_due label">Due Date</label>
+                <label class="item_title label">Title</label>
+                <label class="item_importance label">Importance</label>
+                <div class = item_finished>
+                    <input type="checkbox" id="finished" readonly />
+                    <label class="label" for="finished">finished</label>
+                </div>
+                <textarea class="item_text" readonly>item text</textarea>
+                <button class="command item_edit">Edit</button>
+            </div>
+            <div class="item container">
+                <label class="item_due label">Due Date</label>
+                <label class="item_title label">Title</label>
+                <label class="item_importance label">Importance</label>
+                <div class = item_finished>
+                    <input type="checkbox" id="finished2" readonly />
+                    <label for="finished2 label">finished</label>
+                </div>
+                <textarea class="item_text" readonly>item text</textarea>
+                <button class="command item_edit">Edit</button>
+            </div>
         </div>
     </main>
 
     <footer>
         <p>&copy; Strato</p>
     </footer>
+    <script src="./js/main.js" defer></script>
 </body>
 </html>

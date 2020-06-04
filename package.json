@@ -1,0 +1,23 @@
+{
+  "name": "fee_one",
+  "version": "1.0.0",
+  "description": "nothing to see yet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebourbou/fee_one.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebourbou/fee_one/issues"
+  },
+  "homepage": "https://github.com/ebourbou/fee_one#readme",
+  "dependencies": {
+    "handlebars": "^4.7.6",
+    "moment": "^2.26.0"
+  }
+}

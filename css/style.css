@@ -5,8 +5,7 @@
     --color: #222;
 }
 
-.funky-theme {
-    --default_margin: 40px;
+.dark-theme {
     --background: #222;
     --color: white;
 }

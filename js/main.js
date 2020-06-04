@@ -1,9 +1,23 @@
-const theTheme = document.getElementById("theme");
+import { getNotes } from  './notebook.js';
+import { asStringRelativeToToday } from  './utils.js';
 
-theTheme.addEventListener("onchange", () => {
-    let selection = document.getElementById("theme").value;
-    console.log("selection" + selection);
-    if (selection === "funky") {
-        document.body.classList.toggle("funky-theme");
-    }
-});
+
+const templateSource = document.getElementById("note-template").innerHTML;
+const resolveToHTML = Handlebars.compile(templateSource);
+
+function renderNotes() {
+    document.getElementById("items").innerHTML = resolveToHTML(getNotes());
+}
+
+function init() {
+    document.getElementById("theme").addEventListener("change", () => {
+        document.body.classList.toggle("dark-theme");
+    });
+
+    Handlebars.registerHelper("asDate", function(date) {
+        return asStringRelativeToToday(date) ;
+    });
+    renderNotes();
+}
+
+init();

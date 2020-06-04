@@ -1,70 +1,60 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <link rel="stylesheet" href="./css/bw.css">
+    <link rel="stylesheet" href="css/style.css">
     <meta charset="UTF-8">
     <title>FEE One Note App</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" defer></script>
+    <script id="note-template" type="text/x-handlebars-template">
+        {{#each this}}
+            <div class="item container">
+                <label class="item_due label">{{asDate due}}</label>
+                <label class="item_title label">{{title}}</label>
+                <label class="item_importance label">{{importance}}</label>
+                <div class = item_finished>
+                    <input type="checkbox" id="finished" {{#if isFinished}}checked{{/if}}/>
+                    <label class="label" for="finished">{{#if finished}}Erledigt [{{asDate finished}}] {{else}}Offen{{/if}}</label>
+                </div>
+                <textarea class="item_text" readonly>{{text}}</textarea>
+                <button class="command item_edit">Edit</button>
+            </div>
+        {{/each}}
+    </script>
 </head>
 <body>
-    <header class="container">
-        <a href="form.html">
-            <button class="command">
-                Create new Note
+<header class="container">
+    <a href="form.html">
+        <button class="command">
+            Create new Note
+        </button>
+    </a>
+    <select name="theme" id="theme">
+        <option value="day" selected>Bright Mode</option>
+        <option value="night">Dark Mode</option>
+    </select>
+</header>
+<main >
+    <div class="controls container">
+        <div class="sorting">
+            <button class="command sorter">
+                By finish Date
             </button>
-        </a>
-        <select name="theme" id="theme">
-            <option value="boring" selected>Black'n White</option>
-            <option value="funky">Funky Style</option>
-        </select>
-    </header>
-    <main >
-        <div class="controls container">
-            <div class="sorting">
-                <button class="command sorter">
-                    By finish Date
-                </button>
-                <button class="command sorter">
-                    By created Date
-                </button>
-                <button class="command sorter">
-                    By Importance
-                </button>
-            </div>
-            <div class="filtering">
-                <button class="command filter">
-                    Show finished
-                </button>
-            </div>
+            <button class="command sorter">
+                By created Date
+            </button>
+            <button class="command sorter">
+                By Importance
+            </button>
         </div>
-        <div class="items">
-            <div class="item container">
-                <label class="item_due label">Due Date</label>
-                <label class="item_title label">Title</label>
-                <label class="item_importance label">Importance</label>
-                <div class = item_finished>
-                    <input type="checkbox" id="finished" readonly />
-                    <label class="label" for="finished">finished</label>
-                </div>
-                <textarea class="item_text" readonly>item text</textarea>
-                <button class="command item_edit">Edit</button>
-            </div>
-            <div class="item container">
-                <label class="item_due label">Due Date</label>
-                <label class="item_title label">Title</label>
-                <label class="item_importance label">Importance</label>
-                <div class = item_finished>
-                    <input type="checkbox" id="finished2" readonly />
-                    <label for="finished2 label">finished</label>
-                </div>
-                <textarea class="item_text" readonly>item text</textarea>
-                <button class="command item_edit">Edit</button>
-            </div>
+        <div class="filtering">
+            <button class="command filter">
+                Show finished
+            </button>
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; Strato</p>
-    </footer>
-    <script src="./js/main.js" defer></script>
+    </div>
+    <div class="items" id="items">
+    </div>
+</main>
+<script type="module" src="./js/main.js" defer></script>
 </body>
 </html>

@@ -24,6 +24,13 @@ export class Note {
         return this._finishedDate;
     }
 
+/*    finishNow(){
+        if (this._finishedDate) {
+            throw new Error("Already finished!");
+        }
+        this._finishedDate = today();
+    }*/
+
     get isFinished() {
         return this._finishedDate ? true : false;
     }

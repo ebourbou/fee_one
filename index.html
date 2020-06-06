@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" defer></script>
     <script id="note-template" type="text/x-handlebars-template">
         {{#each this}}
-            <div class="item container">
+            <div class="item container" data-id={{id}}>
                 <label class="item_due label">{{asDate due}}</label>
                 <label class="item_title label">{{title}}</label>
                 <label class="item_importance label">{{importance}}</label>
@@ -16,7 +16,8 @@
                     <label class="label" for="finished">{{#if finished}}Erledigt [{{asDate finished}}] {{else}}Offen{{/if}}</label>
                 </div>
                 <textarea class="item_text" readonly>{{text}}</textarea>
-                <button class="command item_edit">Edit</button>
+                <input class="command item_edit" type="button" onclick="location.href='form.html';" value="Edit" />
+
             </div>
         {{/each}}
     </script>

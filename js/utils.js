@@ -12,16 +12,18 @@ export function today() {
 }
 
 export function asStringRelativeToToday(date) {
-    if (date) {
-        const dateDiff = (date.getTime() - today()) / 86400000;
+    const asNumber = Date.parse(date);
+    if (asNumber) {
+        let x = new Date(asNumber);
+        const dateDiff = (x.getTime() - today()) / 86400000;
         if (dateDiff == 0) {
             return "Heute";
         } else if (dateDiff > 0 && dateDiff < 7) {
-            return "Nächsten " + dayName(date.getDay());
+            return "Nächsten " + dayName(x.getDay());
         } else if (dateDiff < 0 && dateDiff > -7) {
-            return "Letzten " + dayName(date.getDay());
+            return "Letzten " + dayName(x.getDay());
         } else {
-            return date.toLocaleString().split(",")[0];
+            return x.toLocaleString().split(",")[0];
         }
     }
     return null;

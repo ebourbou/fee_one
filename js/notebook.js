@@ -52,30 +52,3 @@ function initTestData() {
 }
 
 //initTestData();
-
-
-
-/*
-
-
-function compareSongs(s1, s2) {
-    return s2.rating - s1.rating;
-}
-
-function songsSorted(){
-    return [...songs].sort(compareSongs);
-}
-
-function findSong(id) {
-    return songs.find(song => parseInt(id) === parseInt(song.id));
-}
-
-function rateSong(songId, delta) {
-    let song = findSong(songId);
-
-    if(song) {
-        song.rating += delta;
-        return true;
-    }
-    return false;
-}*/

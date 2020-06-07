@@ -5,8 +5,8 @@ import { asStringRelativeToToday } from  './utils.js';
 const templateSource = document.getElementById("note-template").innerHTML;
 const resolveToHTML = Handlebars.compile(templateSource);
 
-function renderNotes() {
-    document.getElementById("items").innerHTML = resolveToHTML(loadNotes());
+function renderNotes(notes) {
+    document.getElementById("items").innerHTML = resolveToHTML(notes);
 }
 
 function init() {
@@ -17,10 +17,12 @@ function init() {
         return asStringRelativeToToday(date) ;
     });
 
-    renderNotes();
+    renderNotes(loadNotes());
     registerCreateNewNoteListener();
     registerEditListener();
     registerFinishListener();
+    registerSortingListener();
+    registerFilteringListener();
 
 }
 
@@ -38,7 +40,7 @@ function registerCreateNewNoteListener() {
 }
 
 function registerEditListener() {
-    document.getElementById("items").addEventListener("click", (event) => {
+    document.querySelector("#items").addEventListener("click", (event) => {
             const itemId = event.target.closest(".item").dataset.id;
             sessionStorage.setItem("itemId", itemId);
         }
@@ -46,11 +48,36 @@ function registerEditListener() {
 }
 
 function registerFinishListener() {
-    document.querySelector(".item_finished").addEventListener("click", (event) => {
+    document.querySelector("#items").addEventListener("click", (event) => {
+        if (event.target.type = "checkbox"){
             finishNote(event.target.closest(".item").dataset.id)
-            renderNotes();
+            renderNotes(loadNotes());
         }
-    )
+    })
+}
+
+function registerSortingListener() {
+    document.querySelector(".controls").addEventListener("click", (event) => {
+        let notes = loadNotes();
+        if (event.target.classList.contains("created")) {
+            notes.sort((a, b) => a.created - b.created);
+        } else if (event.target.classList.contains("finish")) {
+            notes.sort((a, b) => b.finish - a.finish);
+        } else if (event.target.classList.contains("importance")) {
+            notes.sort((a, b) => b.importance - a.importance);
+        }
+        renderNotes(notes);
+    })
+}
+
+function registerFilteringListener() {
+    document.querySelector(".controls").addEventListener("click", (event) => {
+        let notes = loadNotes();
+        if (event.target.classList.contains("filter")) {
+            notes.filter((note) => !note.isFinished)
+        }
+        renderNotes(notes);
+    })
 }
 
 init();

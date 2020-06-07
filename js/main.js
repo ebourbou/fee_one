@@ -1,4 +1,4 @@
-import { loadNotes } from  './notebook.js';
+import { loadNotes, finishNote } from  './notebook.js';
 import { asStringRelativeToToday } from  './utils.js';
 
 
@@ -17,9 +17,11 @@ function init() {
         return asStringRelativeToToday(date) ;
     });
 
-    registerEditListener();
-    registerCreateNewNoteListener();
     renderNotes();
+    registerCreateNewNoteListener();
+    registerEditListener();
+    registerFinishListener();
+
 }
 
 function registerThemeListener() {
@@ -39,7 +41,14 @@ function registerEditListener() {
     document.getElementById("items").addEventListener("click", (event) => {
             const itemId = event.target.closest(".item").dataset.id;
             sessionStorage.setItem("itemId", itemId);
-            console.log(itemId);
+        }
+    )
+}
+
+function registerFinishListener() {
+    document.querySelector(".item_finished").addEventListener("click", (event) => {
+            finishNote(event.target.closest(".item").dataset.id)
+            renderNotes();
         }
     )
 }

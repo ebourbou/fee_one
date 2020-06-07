@@ -7,10 +7,14 @@ const resolveToHTML = Handlebars.compile(templateSource);
 
 function registerCancelListener() {
     document.querySelector(".form_cancel").addEventListener("click", (event) => {
-        sessionStorage.removeItem("itemId");
-        location.href = "index.html";
         event.preventDefault();
+        backToIndex();
     });
+}
+
+function backToIndex() {
+    sessionStorage.removeItem("itemId");
+    location.href = "index.html";
 }
 
 function registerSaveListener() {
@@ -28,9 +32,8 @@ function registerSaveListener() {
             note.importance = importance;
 
             addOrUpdateNote(note);
-            document.querySelector(form).reset();
-            sessionStorage.removeItem("itemId");
             event.preventDefault();
+            backToIndex();
         });
 }
 

@@ -2,6 +2,7 @@
 <html lang="de">
 <head>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="party.gif" type="image/gif">
     <meta charset="UTF-8">
     <title>FEE One Note App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" defer></script>
@@ -11,13 +12,12 @@
                 <label class="item_due label">{{asDate due}}</label>
                 <label class="item_title label">{{title}}</label>
                 <label class="item_importance label">{{importance}}</label>
-                <div class = item_finished>
-                    <input type="checkbox" id="finished" {{#if isFinished}}checked{{/if}}/>
+                <div class = "item_finished">
+                    <input type="checkbox" id="finished" {{#if finished}} checked disabled="disabled"{{/if}}/>
                     <label class="label" for="finished">{{#if finished}}Erledigt [{{asDate finished}}] {{else}}Offen{{/if}}</label>
                 </div>
                 <textarea class="item_text" readonly>{{text}}</textarea>
                 <input class="command item_edit" type="button" onclick="location.href='form.html';" value="Edit" />
-
             </div>
         {{/each}}
     </script>
@@ -35,20 +35,12 @@
 <main >
     <div class="controls container">
         <div class="sorting">
-            <button class="command sorter">
-                By finish Date
-            </button>
-            <button class="command sorter">
-                By created Date
-            </button>
-            <button class="command sorter">
-                By Importance
-            </button>
+            <button class="command sorter">By finish Date</button>
+            <button class="command sorter">By created Date</button>
+            <button class="command sorter">By Importance</button>
         </div>
         <div class="filtering">
-            <button class="command filter">
-                Show finished
-            </button>
+            <button class="command filter">Show finished</button>
         </div>
     </div>
     <div class="items" id="items">

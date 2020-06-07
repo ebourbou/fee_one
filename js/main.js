@@ -18,6 +18,7 @@ function init() {
     });
 
     registerEditListener();
+    registerCreateNewNoteListener();
     renderNotes();
 }
 
@@ -25,6 +26,12 @@ function registerThemeListener() {
     document.getElementById("theme").addEventListener("change", () => {
         sessionStorage.setItem("theme", document.getElementById("theme").value);
         document.body.classList.toggle("dark-theme");
+    });
+}
+
+function registerCreateNewNoteListener() {
+    document.querySelector(".create").addEventListener("click", () => {
+        sessionStorage.removeItem("itemId");
     });
 }
 

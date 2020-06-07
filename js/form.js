@@ -1,29 +1,37 @@
-import {loadNote} from "./notebook.js";
+import {loadNote, addOrUpdateNote} from "./notebook.js";
 import {Note} from "./note.js";
 import {today} from "./utils.js";
 
 const templateSource = document.getElementById("new-note-template").innerHTML;
 const resolveToHTML = Handlebars.compile(templateSource);
 
-function registerSaveListener() {
-    const form = document.querySelector("form");
-
-    form.addEventListener("submit", (event) => {
-        const title = document.querySelector("#title").value;
-        const text = document.querySelector("#textArea").textContent;
-        const due = document.querySelector("#due_date").value;
-        const importance = 3;
-
-        let note = getCurrentOrNewNote();
-        note.title = title;
-        note.text = text;
-        note.due = due;
-        note.importance = importance;
-
-        addOrUpdateNote(note);
+function registerCancelListener() {
+    document.querySelector(".form_cancel").addEventListener("click", (event) => {
+        sessionStorage.removeItem("itemId");
+        location.href = "index.html";
         event.preventDefault();
-
     });
+}
+
+function registerSaveListener() {
+
+        document.querySelector(".form_submit").addEventListener("click", (event) => {
+            const title = document.querySelector("#title").value;
+            const text = document.querySelector("#textArea").value;
+            const due = document.querySelector("#due_date").value;
+            const importance = 3;
+
+            let note = getCurrentOrNewNote();
+            note.title = title;
+            note.text = text;
+            note.due = due;
+            note.importance = importance;
+
+            addOrUpdateNote(note);
+            document.querySelector(form).reset();
+            sessionStorage.removeItem("itemId");
+            event.preventDefault();
+        });
 }
 
 
@@ -84,7 +92,7 @@ function init() {
 
     registerValidationListeners();
     registerSaveListener();
-
+    registerCancelListener();
 
 }
 

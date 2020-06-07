@@ -82,8 +82,8 @@ form {
 .form_importance_container {grid-column: 2; grid-row: 3 }
 .form_due {grid-column: 1; grid-row: 4 }
 .form_due_input { grid-column: 2; grid-row: 4 }
-form > button[type="submit"] {grid-column: 1 / span 5; grid-row: 5 }
-form > button[type="reset"] {grid-column: 4 / span 2; grid-row: 6 }
+.form_submit {grid-column: 1 / span 5; grid-row: 5 }
+.form_cancel {grid-column: 4 / span 2; grid-row: 6 }
 
 
 

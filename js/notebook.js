@@ -51,7 +51,7 @@ function initTestData() {
     finishNote(note.id);
 }
 
-initTestData();
+//initTestData();
 
 
 

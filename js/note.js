@@ -5,7 +5,7 @@ export class Note {
 
     constructor(due, title, importance, text){
         this.id = uuidv4();
-        this.due = due;
+        this.due = due ? due : today();
         this.title = title;
         this.importance = importance;
         this._finishedDate = null;

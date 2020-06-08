@@ -1,4 +1,4 @@
-import {loadNote, addOrUpdateNote} from "./notebook.js";
+import {loadNote, addOrReplaceNote} from "./notebook.js";
 import {Note} from "./note.js";
 import {today} from "./utils.js";
 
@@ -23,7 +23,7 @@ function registerSaveListener() {
             const title = document.querySelector("#title").value;
             const text = document.querySelector("#textArea").value;
             const due = document.querySelector("#due_date").value;
-            const importance = 3;
+            const importance = document.querySelector('.form_importance_input:checked').value;
 
             let note = getCurrentOrNewNote();
             note.title = title;
@@ -31,7 +31,7 @@ function registerSaveListener() {
             note.due = due;
             note.importance = importance;
 
-            addOrUpdateNote(note);
+            addOrReplaceNote(note);
             event.preventDefault();
             backToIndex();
         });

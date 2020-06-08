@@ -17,12 +17,15 @@ function init() {
         return asStringRelativeToToday(date) ;
     });
 
-    renderNotes(loadNotes());
+    registerSortByCreated();
+    registerSortByFinish();
+    registerSortByImportance();
+    registerFilterByFinished();
     registerCreateNewNoteListener();
     registerEditListener();
     registerFinishListener();
-    registerSortingListener();
-    registerFilteringListener();
+
+    loadSortAndRenderByCreated();
 
 }
 
@@ -50,31 +53,58 @@ function registerEditListener() {
 function registerFinishListener() {
     document.querySelector("#items").addEventListener("click", (event) => {
         if (event.target.type = "checkbox"){
-            finishNote(event.target.closest(".item").dataset.id)
+            finishNote(event.target.closest(".item").dataset.id);
             renderNotes(loadNotes());
         }
     })
 }
 
-function registerSortingListener() {
-    document.querySelector(".controls").addEventListener("click", (event) => {
+function registerSortByFinish() {
+    document.querySelector(".command.sorter.finish").addEventListener("click", (event) => {
+        toggleSorters(false, true, false);
         let notes = loadNotes();
-        if (event.target.classList.contains("created")) {
-            notes.sort((a, b) => a.created - b.created);
-        } else if (event.target.classList.contains("finish")) {
-            notes.sort((a, b) => b.finish - a.finish);
-        } else if (event.target.classList.contains("importance")) {
-            notes.sort((a, b) => b.importance - a.importance);
-        }
+        notes.sort((a, b) => {
+            let left = isNaN(Date.parse(a.finished)) ? -1 : Date.parse(a.finished);
+            let right = isNaN(Date.parse(b.finished)) ? -1 : Date.parse(b.finished);
+            return right - left ;
+        });
         renderNotes(notes);
-    })
+    });
 }
 
-function registerFilteringListener() {
-    document.querySelector(".controls").addEventListener("click", (event) => {
+function registerSortByImportance() {
+    document.querySelector(".command.sorter.importance").addEventListener("click", (event) => {
+        toggleSorters(false, false, true);
         let notes = loadNotes();
-        if (event.target.classList.contains("filter")) {
-            notes.filter((note) => !note.isFinished)
+        notes.sort((a, b) => b.importance - a.importance);
+        renderNotes(notes);
+    });
+}
+
+function toggleSorters(created, finish, importance){
+    document.querySelector(".command.sorter.created").classList.toggle("button_selected",created);
+    document.querySelector(".command.sorter.finish").classList.toggle("button_selected",finish);
+    document.querySelector(".command.sorter.importance").classList.toggle("button_selected",importance);
+}
+
+function loadSortAndRenderByCreated() {
+    toggleSorters(true, false, false);
+    let notes = loadNotes();
+    notes.sort((a, b) => new Date(a.created) - new Date(b.created));
+    renderNotes(notes);
+}
+
+function registerSortByCreated() {
+    document.querySelector(".command.sorter.created").addEventListener("click", (event) => {
+        loadSortAndRenderByCreated();
+    });
+}
+
+function registerFilterByFinished() {
+    document.querySelector(".command.filter").addEventListener("click", (event) => {
+        let notes = loadNotes();
+        if (!document.querySelector(".command.filter").classList.toggle("button_selected")) {
+            notes.filter((note) => !note.finished );
         }
         renderNotes(notes);
     })

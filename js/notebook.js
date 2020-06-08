@@ -4,7 +4,7 @@ import {today} from "./utils.js";
 
 const NOTES_KEY = "notes";
 
-export function addOrUpdateNote(newNote) {
+export function addOrReplaceNote(newNote) {
     let notes = loadNotes();
     let indexExisting = notes.findIndex(n => n.id === newNote.id);
     if (indexExisting != -1){
@@ -21,7 +21,7 @@ function updateNote(id, due, title, importance, text){
     note.title = title;
     note.importance = importance;
     note.text = text;
-    addOrUpdateNote(note);
+    addOrReplaceNote(note);
 }
 
 export function loadNotes() {
@@ -35,7 +35,7 @@ export function loadNotes() {
 export function finishNote(id){
     let note = loadNote(id);
     note.finished = today();
-    addOrUpdateNote(note)
+    addOrReplaceNote(note)
 }
 
 export function loadNote(id){
@@ -43,11 +43,11 @@ export function loadNote(id){
 }
 
 function initTestData() {
-    addOrUpdateNote(new Note(new Date(2020,6,6), "Erste Notiz", 3, "Der Notizentext"));
-    addOrUpdateNote(new Note(new Date(2020,5,5), "Zweite Notiz", 2, "Hier steht sonstwas"));
+    addOrReplaceNote(new Note(new Date(2020,6,6), "Erste Notiz", 3, "Der Notizentext"));
+    addOrReplaceNote(new Note(new Date(2020,5,5), "Zweite Notiz", 2, "Hier steht sonstwas"));
 
     let note = new Note(new Date(2020,5,3), "Dritte Notiz", 1, "Lorem impsum");
-    addOrUpdateNote(note);
+    addOrReplaceNote(note);
     finishNote(note.id);
 }
 

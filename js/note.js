@@ -13,8 +13,4 @@ export class Note {
         this.text = text;
     }
 
-    get isFinished() {
-        return this.finished ? true : false;
-    }
-
 }

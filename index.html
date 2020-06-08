@@ -23,29 +23,29 @@
     </script>
 </head>
 <body>
-<header class="container">
-    <a href="form.html">
-        <button class="create command">Create new Note</button>
-    </a>
-    <select name="theme" id="theme">
-        <option value="day" selected>Bright Mode</option>
-        <option value="night">Dark Mode</option>
-    </select>
-</header>
-<main >
-    <div class="controls container">
-        <div class="sorting">
-            <button class="command sorter finish">By finish Date</button>
-            <button class="command sorter created">By created Date</button>
-            <button class="command sorter importance">By Importance</button>
+    <header class="container">
+        <a href="form.html">
+            <button class="create command">Create new Note</button>
+        </a>
+        <select name="theme" id="theme">
+            <option value="day" selected>Bright Mode</option>
+            <option value="night">Dark Mode</option>
+        </select>
+    </header>
+    <main >
+        <div class="controls container">
+            <div class="sorting">
+                <button class="command sorter finish">By finish Date</button>
+                <button class="command sorter created">By created Date</button>
+                <button class="command sorter importance">By Importance</button>
+            </div>
+            <div class="filtering">
+                <button class="command filter button_selected">Show finished</button>
+            </div>
         </div>
-        <div class="filtering">
-            <button class="command filter">Show finished</button>
+        <div class="items" id="items">
         </div>
-    </div>
-    <div class="items" id="items">
-    </div>
-</main>
-<script type="module" src="./js/main.js" defer></script>
+    </main>
+    <script type="module" src="./js/main.js" defer></script>
 </body>
 </html>

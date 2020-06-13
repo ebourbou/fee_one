@@ -12,7 +12,3 @@ nothing to see yet
          }
     )
 ```
-`
-Uncaught TypeError: Cannot read property 'dataset' of null
-    at HTMLDivElement.<anonymous> (main.js:30)
-`

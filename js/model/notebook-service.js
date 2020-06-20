@@ -1,36 +1,38 @@
-import {today} from "../util/utils.js";
+import {HttpService} from "./http-service.js";
+import {Note} from "./note.js";
 
 export class NotebookService {
 
     #notebookStorage;
+    #httpService;
 
     constructor(notebookStorage) {
         this.#notebookStorage = notebookStorage;
+        this.#httpService = new HttpService();
     }
 
-    loadNotes() {
-        return this.#notebookStorage.loadNotes();
+    async loadNotes() {
+        return await this.#httpService.ajax("GET", "/notebook/notes/");
+        //return this.#notebookStorage.loadNotes();
     }
 
-    loadNote(id){
-        return this.#notebookStorage.loadNote(id);
+    async loadNote(id){
+        return await this.#httpService.ajax("GET", `/notebook/note/${id}`);
+        //return this.#notebookStorage.loadNote(id);
     }
 
-    addNoteOrUpdateNote(note) {
-        if(this.#notebookStorage.loadNote(note.id)) {
-            this.#notebookStorage.updateNote(note);
-        } else {
-            this.#notebookStorage.addNote(note);
-        }
+    async addNote(note) {
+        await this.#httpService.ajax("POST", '/notebook/note/', note)
     }
 
-    finishNote(id){
-        let note = this.#notebookStorage.loadNote(id);
-        // TODO !!! möchte finish() verwenden, wie macht man aus der note eine Note?
-        //note.finish();
-        note.finished = today();
-        this.#notebookStorage.updateNote(note);
+    async updateNote(note) {
+        await this.#httpService.ajax("PUT", `/notebook/note/${note.id}`, note)
     }
 
+    async finishNote(id){
+        let note = Object.assign(new Note, await this.loadNote(id))
+        note.finish();
+        await this.updateNote(note);
+    }
 
 }

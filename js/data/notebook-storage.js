@@ -1,5 +1,4 @@
-import {Note} from "../model/note.js";
-import {today} from "../util/utils.js";
+import {Utils} from "../util/utils.js";
 
 export class NotebookStorage {
 
@@ -40,7 +39,7 @@ export class NotebookStorage {
             toBeUpdated.text = updatedNote.text;
             if (updatedNote.finished){
                 // TODO !!! möchte finish() verwenden, wie macht man aus der note eine Note?
-                toBeUpdated.finished = today();
+                toBeUpdated.finished = Utils.today();
             }
             this.saveNotes(notes);
         }

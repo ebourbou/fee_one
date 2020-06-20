@@ -1,4 +1,4 @@
-import { asStringRelativeToToday, today } from '../util/utils.js';
+import { Utils } from '../util/utils.js';
 
 export class NotebookController {
 
@@ -7,10 +7,8 @@ export class NotebookController {
     #itemsElement;
 
     constructor(notebookService) {
-
         this.#resolveToHTML = Handlebars.compile(document.getElementById("note-template").innerHTML);
         this.#itemsElement = document.getElementById("items");
-
         this.#notebookService = notebookService;
     }
 
@@ -19,13 +17,10 @@ export class NotebookController {
     }
 
     initEventHandlers() {
-
         this.registerThemeListener();
-
         Handlebars.registerHelper("asDate", function(date) {
-            return asStringRelativeToToday(date) ;
+            return Utils.asStringRelativeToToday(date) ;
         });
-
         this.registerSortByCreated();
         this.registerSortByFinish();
         this.registerSortByImportance();
@@ -33,9 +28,7 @@ export class NotebookController {
         this.registerCreateNewNoteListener();
         this.registerEditListener();
         this.registerFinishListener();
-
         this.loadSortAndRenderByCreated();
-
     }
 
     registerThemeListener() {
@@ -52,7 +45,7 @@ export class NotebookController {
     }
 
     registerEditListener() {
-        document.querySelector("#items").addEventListener("click", (event) => {
+        document.querySelector("#items").addEventListener("click",  (event) => {
                 const itemId = event.target.closest(".item").dataset.id;
                 sessionStorage.setItem("itemId", itemId);
             }
@@ -60,18 +53,18 @@ export class NotebookController {
     }
 
     registerFinishListener() {
-        document.querySelector("#items").addEventListener("click", (event) => {
-            if (event.target.type = "checkbox"){
-                this.#notebookService.finishNote(event.target.closest(".item").dataset.id);
+        document.querySelector("#items").addEventListener("click", async (event) => {
+            if (event.target.type == "checkbox"){
+                await this.#notebookService.finishNote(event.target.closest(".item").dataset.id);
             }
             this.renderNotes(this.#notebookService.loadNotes());
         });
     }
 
     registerSortByFinish() {
-        document.querySelector(".command.sorter.finish").addEventListener("click", (event) => {
+        document.querySelector(".command.sorter.finish").addEventListener("click", async () => {
             this.toggleSorters(false, true, false);
-            let notes = this.#notebookService.loadNotes();
+            let notes = await this.#notebookService.loadNotes();
             notes.sort((a, b) => {
                 let left = isNaN(Date.parse(a.finished)) ? -1 : Date.parse(a.finished);
                 let right = isNaN(Date.parse(b.finished)) ? -1 : Date.parse(b.finished);
@@ -82,9 +75,9 @@ export class NotebookController {
     }
 
     registerSortByImportance() {
-        document.querySelector(".command.sorter.importance").addEventListener("click", (event) => {
+        document.querySelector(".command.sorter.importance").addEventListener("click", async () => {
             this.toggleSorters(false, false, true);
-            let notes = this.#notebookService.loadNotes();
+            let notes = await this.#notebookService.loadNotes();
             notes.sort((a, b) => b.importance - a.importance);
             this.renderNotes(notes);
         });
@@ -96,24 +89,24 @@ export class NotebookController {
         document.querySelector(".command.sorter.importance").classList.toggle("button_selected",importance);
     }
 
-    loadSortAndRenderByCreated() {
+    async loadSortAndRenderByCreated() {
         this.toggleSorters(true, false, false);
-        let notes = this.#notebookService.loadNotes();
+        let notes = await this.#notebookService.loadNotes();
         notes.sort((a, b) => new Date(a.created) - new Date(b.created));
         this.renderNotes(notes);
     }
 
     registerSortByCreated() {
-        document.querySelector(".command.sorter.created").addEventListener("click", (event) => {
-            this.loadSortAndRenderByCreated();
+        document.querySelector(".command.sorter.created").addEventListener("click", async () => {
+            await this.loadSortAndRenderByCreated();
         });
     }
 
     registerFilterByFinished() {
-        document.querySelector(".command.filter").addEventListener("click", (event) => {
-            let notes = this.#notebookService.loadNotes();
+        document.querySelector(".command.filter").addEventListener("click", async () => {
+            let notes = await this.#notebookService.loadNotes();
             if (!document.querySelector(".command.filter").classList.toggle("button_selected")) {
-                notes.filter((note) => !note.finished );
+                notes = notes.filter((note) => note.finished );
             }
             this.renderNotes(notes);
         })

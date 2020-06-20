@@ -13,7 +13,7 @@
                 <label class="item_title label">{{title}}</label>
                 <label class="item_importance label">{{importance}}</label>
                 <div class = "item_finished">
-                    <input type="checkbox" id="finished" {{#if finished}} checked disabled="disabled"{{/if}}/>
+                    <input type="checkbox" id="finished" {{#if finished}} checked disabled="disabled" {{/if}}/>
                     <label class="label" for="finished">{{#if finished}}Erledigt [{{asDate finished}}] {{else}}Offen{{/if}}</label>
                 </div>
                 <textarea class="item_text" readonly>{{text}}</textarea>

@@ -11,5 +11,4 @@ class NoteBootstrapper {
     }
 }
 
-// wait until scripts have been loaded
 document.addEventListener('DOMContentLoaded', NoteBootstrapper.start);

@@ -1,7 +1,6 @@
 import {NotebookController} from "./control/notebook-controller.js";
 import {NotebookService} from "./model/notebook-service.js";
 import {NotebookStorage} from "./data/notebook-storage.js";
-import {NoteController} from "./control/note-controller.js";
 
 
 class Bootstrapper {
@@ -12,5 +11,4 @@ class Bootstrapper {
     }
 }
 
-// wait until scripts have been loaded
 document.addEventListener('DOMContentLoaded', Bootstrapper.start);

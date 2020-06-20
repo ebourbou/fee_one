@@ -4,12 +4,14 @@
   "description": "nothing to see yet",
   "main": "index.js",
   "scripts": {
+    "start": "node --experimental-modules --es-module-specifier-resolution=node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ebourbou/fee_one.git"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -17,7 +19,14 @@
   },
   "homepage": "https://github.com/ebourbou/fee_one#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "handlebars": "^4.7.6",
-    "moment": "^2.26.0"
+    "moment": "^2.26.0",
+    "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "method-override": "^3.0.0"
   }
 }

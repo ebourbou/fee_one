@@ -1,12 +1,12 @@
 
-import { uuidv4, today } from '../util/utils.js';
+import {Utils } from '../util/utils.js';
 
 export class Note {
 
-    #finished = null;
+    finished = null;
 
-    constructor(due = today(), title, importance, text){
-        this.id = uuidv4();
+    constructor(id, due = Utils.today(), title, importance, text){
+        this.id = id;
         this.created = new Date();
         this.due = due;
         this.title = title;
@@ -15,16 +15,11 @@ export class Note {
     }
 
     get finished() {
-        return this.#finished;
-    }
-
-    set finished(date) {
-        // TODO !!! methode sollte nicht nötig sein. möchte finish() verwenden
-        this.#finished = today();
+        return  this.finished ? null : new Date(this.finished);
     }
 
     finish() {
-        this.#finished = today();
+        this.finished = Utils.today();
     }
 
 }

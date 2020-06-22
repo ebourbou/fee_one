@@ -80,17 +80,11 @@ export class NoteController {
 
     async init() {
 
-        Handlebars.registerHelper("formatDate", function (date) {
-            return Utils.dateAsDDMMYYYYString(date);
-        });
-
         if (sessionStorage.getItem("theme") === "night") {
             document.body.classList.toggle("dark-theme");
         }
 
-
         document.body.innerHTML = this.#resolveToHTML(await this.getCurrentOrNewNote());
-
 
         this.registerValidationListeners();
         this.registerSaveListener();

@@ -99,9 +99,6 @@ export class NotebookController {
 
     init() {
         this.registerThemeListener();
-        Handlebars.registerHelper("asDate", function(date) {
-            return Utils.asStringRelativeToToday(date) ;
-        });
         this.registerSortByCreated();
         this.registerSortByFinish();
         this.registerSortByImportance();

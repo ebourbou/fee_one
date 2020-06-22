@@ -15,7 +15,9 @@
             <div class="item container" data-id={{_id}}>
                 <label class="item_due label">{{asDate due}}</label>
                 <label class="item_title label">{{title}}</label>
-                <label class="item_importance label">{{importance}}</label>
+                <span class="item_importance">
+                    {{#icons importance}}<img class="item_importance_icon" src="../img/lightning.png"/>{{/icons}}
+                </span>
                 <div class = "item_finished">
                     <input type="checkbox" id="finished" {{#if finished}} checked disabled="disabled" {{/if}}/>
                     <label class="label" for="finished">{{#if finished}}Erledigt [{{asDate finished}}] {{else}}Offen{{/if}}</label>

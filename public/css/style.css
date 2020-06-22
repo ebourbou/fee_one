@@ -62,7 +62,22 @@ header {
 }
 .item_due { grid-area: date; }
 .item_title { grid-area: title}
-.item_importance { grid-area: importance; }
+
+.item_importance {
+    grid-area: importance;
+    display: flex;
+}
+
+.item_importance_icon {
+    width: 24px;
+    height: 24px;
+}
+
+.item_importance_icon_black {
+    width: 12px;
+    height: 24px;
+}
+
 .item_finished { grid-area: finished; }
 .item_text { grid-area: text; }
 .item_edit {

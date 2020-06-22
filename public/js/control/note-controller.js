@@ -1,5 +1,5 @@
 import {Note} from "../model/note.js";
-import {Utils} from "../util/utils.js";
+import {Utils} from "../../../util/utils.js";
 
 export class NoteController {
 
@@ -35,14 +35,17 @@ export class NoteController {
             note.due = due;
             note.importance = importance;
 
-            if(note.id == null) {
-                this.#notebookService.addNote(note);
+            if(note._id == null) {
+                await this.#notebookService.addNote(note);
+                await event.preventDefault();
+                await this.backToIndex();
             } else {
-                this.#notebookService.updateNote(note);
+                await this.#notebookService.updateNote(note);
+                await event.preventDefault();
+                await this.backToIndex();
             }
 
-            event.preventDefault();
-            this.backToIndex();
+
         });
     }
 
@@ -78,17 +81,15 @@ export class NoteController {
 
     async init() {
 
+        Handlebars.registerHelper("formatDate", function (date) {
+            return Utils.dateAsDDMMYYYYString(date);
+        });
+
         if (sessionStorage.getItem("theme") === "night") {
             document.body.classList.toggle("dark-theme");
         }
 
-        Handlebars.registerHelper("ifHigherEqual", function (importance, currentItem) {
-            return importance >= currentItem;
-        });
 
-        Handlebars.registerHelper("formatDate", function (date) {
-            return Utils.dateAsDDMMYYYYString(date);
-        });
         document.body.innerHTML = this.#resolveToHTML(await this.getCurrentOrNewNote());
 
 

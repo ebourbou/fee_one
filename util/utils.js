@@ -12,21 +12,20 @@ export class Utils {
     }
 
     static asStringRelativeToToday(date) {
-        const asNumber = Date.parse(date);
-        if (asNumber) {
-            let x = new Date(asNumber);
-            const dateDiff = (x.getTime() - Utils.today()) / 86400000;
-            if (dateDiff == 0) {
-                return "Heute";
-            } else if (dateDiff > 0 && dateDiff < 7) {
-                return "Nächsten " + Utils.dayName(x.getDay());
-            } else if (dateDiff < 0 && dateDiff > -7) {
-                return "Letzten " + Utils.dayName(x.getDay());
-            } else {
-                return x.toLocaleString().split(",")[0];
-            }
+
+        const todayAsDayNumber = Date.parse(this.dateAsDDMMYYYYString(Utils.today())) / (1000*60*60*24);
+        const inputAsDayNumber = Date.parse(date) / (1000*60*60*24);
+        const dateDiff = (inputAsDayNumber - todayAsDayNumber ) ;
+        if (dateDiff == 0) {
+            return "Heute";
+        } else if (dateDiff > 0 && dateDiff < 7) {
+            return "Nächsten " + (Utils.dayName(Math.abs(dateDiff)));
+        } else if (dateDiff < 0 && dateDiff > -7) {
+            return "Letzten " + Utils.dayName(Math.abs(dateDiff));
+        } else {
+            return Date.parse(date).toLocaleString().split(",")[0];
         }
-        return null;
+
     }
 
     static dayName(dayNumber) {
@@ -35,7 +34,8 @@ export class Utils {
     }
 
     static dateAsDDMMYYYYString(date) {
-        let d = new Date(date);
+        let d;
+        d = date ? new Date(date) : this.today();
         let month = '' + (d.getMonth() + 1);
         let day = '' + d.getDate();
         let year = d.getFullYear();

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="party.gif" type="image/gif">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../img/party.gif" type="image/gif">
     <meta charset="UTF-8">
     <title>FEE One Note App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" defer></script>
     <script id="note-template" type="text/x-handlebars-template">
         {{#each this}}
-            <div class="item container" data-id={{id}}>
+            <div class="item container" data-id={{_id}}>
                 <label class="item_due label">{{asDate due}}</label>
                 <label class="item_title label">{{title}}</label>
                 <label class="item_importance label">{{importance}}</label>
@@ -17,7 +17,7 @@
                     <label class="label" for="finished">{{#if finished}}Erledigt [{{asDate finished}}] {{else}}Offen{{/if}}</label>
                 </div>
                 <textarea class="item_text" readonly>{{text}}</textarea>
-                <input class="command item_edit" type="button" onclick="location.href='form.html';" value="Edit" />
+                <input class="command item_edit" type="button" onclick="location.href='form.html'" value="Edit" {{#if finished}} disabled="disabled" {{/if}}/>
             </div>
         {{/each}}
     </script>
@@ -46,6 +46,6 @@
         <div class="items" id="items">
         </div>
     </main>
-    <script type="module" src="./js/bootstrapper.js" defer></script>
+    <script type="module" src="../js/bootstrapper.js" defer></script>
 </body>
 </html>

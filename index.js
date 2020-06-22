@@ -1,12 +1,13 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {NotebookServer} from './js/server/notebook-server.js';
+import {NotebookServer} from './server/notebook-server.js';
+import {NotebookStore} from "./data/notebook-store.js";
 
 
 const app = express();
 const router = express.Router();
-const server = new NotebookServer();
+const server = new NotebookServer(new NotebookStore());
 
 // middlewares
 function notFound(req,res, next) {
@@ -45,8 +46,8 @@ router.all("/*", myDummyLogger());
 //router.get("/", showIndex);
 //router.get("/error", generateError);
 router.get("/notebook/notes", server.loadNotes.bind(server));
-router.get("/notebook/note/:id/", server.loadNote.bind(server));
-router.put("/notebook/note/:id/", server.updateNote.bind(server));
+router.get("/notebook/note/:_id/", server.loadNote.bind(server));
+router.put("/notebook/note/:_id/", server.updateNote.bind(server));
 router.post("/notebook/note", server.addNote.bind(server));
 
 const hostname = '127.0.0.1';

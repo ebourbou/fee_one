@@ -1,4 +1,4 @@
-import { Utils } from '../util/utils.js';
+import { Utils } from '../../../util/utils.js';
 
 export class NotebookController {
 
@@ -14,21 +14,6 @@ export class NotebookController {
 
     renderNotes(notes){
         this.#itemsElement.innerHTML = this.#resolveToHTML(notes);
-    }
-
-    initEventHandlers() {
-        this.registerThemeListener();
-        Handlebars.registerHelper("asDate", function(date) {
-            return Utils.asStringRelativeToToday(date) ;
-        });
-        this.registerSortByCreated();
-        this.registerSortByFinish();
-        this.registerSortByImportance();
-        this.registerFilterByFinished();
-        this.registerCreateNewNoteListener();
-        this.registerEditListener();
-        this.registerFinishListener();
-        this.loadSortAndRenderByCreated();
     }
 
     registerThemeListener() {
@@ -56,8 +41,8 @@ export class NotebookController {
         document.querySelector("#items").addEventListener("click", async (event) => {
             if (event.target.type == "checkbox"){
                 await this.#notebookService.finishNote(event.target.closest(".item").dataset.id);
+                await this.renderNotes(this.#notebookService.loadNotes());
             }
-            this.renderNotes(this.#notebookService.loadNotes());
         });
     }
 
@@ -106,10 +91,25 @@ export class NotebookController {
         document.querySelector(".command.filter").addEventListener("click", async () => {
             let notes = await this.#notebookService.loadNotes();
             if (!document.querySelector(".command.filter").classList.toggle("button_selected")) {
-                notes = notes.filter((note) => note.finished );
+                notes = notes.filter((note) => !note.finished );
             }
             this.renderNotes(notes);
         })
+    }
+
+    init() {
+        this.registerThemeListener();
+        Handlebars.registerHelper("asDate", function(date) {
+            return Utils.asStringRelativeToToday(date) ;
+        });
+        this.registerSortByCreated();
+        this.registerSortByFinish();
+        this.registerSortByImportance();
+        this.registerFilterByFinished();
+        this.registerCreateNewNoteListener();
+        this.registerEditListener();
+        this.registerFinishListener();
+        this.loadSortAndRenderByCreated();
     }
 
 }

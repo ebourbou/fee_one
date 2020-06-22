@@ -25,6 +25,7 @@ export class NoteController {
 
     registerSaveListener() {
         document.querySelector(".form_submit").addEventListener("click", async (event) => {
+            event.preventDefault();
             const title = document.querySelector(".form_title_input").value;
             const text = document.querySelector(".form_text_input").value;
             const due = document.querySelector(".form_due_input").value;
@@ -37,11 +38,9 @@ export class NoteController {
 
             if(note._id == null) {
                 await this.#notebookService.addNote(note);
-                await event.preventDefault();
                 await this.backToIndex();
             } else {
                 await this.#notebookService.updateNote(note);
-                await event.preventDefault();
                 await this.backToIndex();
             }
 

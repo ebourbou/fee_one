@@ -8,7 +8,7 @@ export class NotebookController {
 
     constructor(notebookService) {
         this.#resolveToHTML = Handlebars.compile(document.getElementById("note-template").innerHTML);
-        this.#itemsElement = document.getElementById("items");
+        this.#itemsElement = document.querySelector(".items");
         this.#notebookService = notebookService;
     }
 
@@ -30,7 +30,7 @@ export class NotebookController {
     }
 
     registerEditListener() {
-        document.querySelector("#items").addEventListener("click",  (event) => {
+        document.querySelector(".items").addEventListener("click",  (event) => {
                 const itemId = event.target.closest(".item").dataset.id;
                 sessionStorage.setItem("itemId", itemId);
             }
@@ -38,7 +38,7 @@ export class NotebookController {
     }
 
     registerFinishListener() {
-        document.querySelector("#items").addEventListener("click", async (event) => {
+        document.querySelector(".items").addEventListener("click", async (event) => {
             if (event.target.type == "checkbox"){
                 await this.#notebookService.finishNote(event.target.closest(".item").dataset.id);
                 await this.renderNotes(this.#notebookService.loadNotes());

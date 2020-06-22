@@ -25,9 +25,9 @@ export class NoteController {
 
     registerSaveListener() {
         document.querySelector(".form_submit").addEventListener("click", async (event) => {
-            const title = document.querySelector("#title").value;
-            const text = document.querySelector("#textArea").value;
-            const due = document.querySelector("#due_date").value;
+            const title = document.querySelector(".form_title_input").value;
+            const text = document.querySelector(".form_text_input").value;
+            const due = document.querySelector(".form_due_input").value;
             const importance = document.querySelector('.form_importance_input:checked').value;
             let note = await this.getCurrentOrNewNote();
             note.title = title;
@@ -50,8 +50,8 @@ export class NoteController {
     }
 
     registerValidationListeners() {
-        const title = document.getElementById("title");
-        document.getElementById("title").addEventListener("input", () => {
+        const title = document.querySelector(".form_title_input");
+        title.addEventListener("input", () => {
             if (title.validity.tooShort) {
                 title.setCustomValidity("Das soll eine Notiz sein? Zu kurz! Gib dir Mühe!");
             } else {
@@ -59,7 +59,7 @@ export class NoteController {
             }
         });
 
-        const dueDate = document.getElementById("due_date");
+        const dueDate = document.querySelector(".form_due_input");
         dueDate.addEventListener("input", () => {
             if (dueDate.valueAsDate < Utils.today()) {
                 dueDate.setCustomValidity("Eine Notiz soll für die Zukunft sein!");

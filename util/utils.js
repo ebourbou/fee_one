@@ -13,8 +13,8 @@ export class Utils {
 
     static asStringRelativeToToday(date) {
 
-        const todayAsDayNumber = Date.parse(this.dateAsDDMMYYYYString(Utils.today())) / (1000*60*60*24);
-        const inputAsDayNumber = Date.parse(date) / (1000*60*60*24);
+        const todayAsDayNumber = Math.round(Date.parse(this.dateAsDDMMYYYYString(Utils.today())) / (1000*60*60*24));
+        const inputAsDayNumber = Math.round(Date.parse(date) / (1000*60*60*24));
         const dateDiff = (inputAsDayNumber - todayAsDayNumber ) ;
         if (dateDiff == 0) {
             return "Heute";
@@ -23,7 +23,7 @@ export class Utils {
         } else if (dateDiff < 0 && dateDiff > -7) {
             return "Letzten " + Utils.dayName(Math.abs(dateDiff));
         } else {
-            return Date.parse(date).toLocaleString().split(",")[0];
+            return new Date(Date.parse(date)).toLocaleString().split(",")[0];
         }
 
     }

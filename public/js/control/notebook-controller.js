@@ -41,7 +41,7 @@ export class NotebookController {
         document.querySelector(".items").addEventListener("click", async (event) => {
             if (event.target.type == "checkbox"){
                 await this.#notebookService.finishNote(event.target.closest(".item").dataset.id);
-                await this.renderNotes(this.#notebookService.loadNotes());
+                this.renderNotes(await this.#notebookService.loadNotes());
             }
         });
     }

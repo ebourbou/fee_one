@@ -1,11 +1,11 @@
 import {NotebookService} from "./model/notebook-service.js";
-import {NoteController} from "./control/note-controller.js";
+import {FormController} from "./control/form-controller.js";
 
 
 class NoteBootstrapper {
     static start() {
         const notebookService = new NotebookService();
-        new NoteController(notebookService).init();
+        new FormController(notebookService).init();
     }
 }
 

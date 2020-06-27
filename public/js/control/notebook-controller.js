@@ -97,7 +97,7 @@ export class NotebookController {
         })
     }
 
-    init() {
+    async init() {
         this.registerThemeListener();
         this.registerSortByCreated();
         this.registerSortByFinish();
@@ -106,7 +106,7 @@ export class NotebookController {
         this.registerCreateNewNoteListener();
         this.registerEditListener();
         this.registerFinishListener();
-        this.loadSortAndRenderByCreated();
+        await this.loadSortAndRenderByCreated();
     }
 
 }

@@ -8,12 +8,8 @@ export class Note {
     created = new Date();
     due;
     title;
-    importance;
+    importance = 0;
     text;
-
-    get finished() {
-        return  this.finished ? null : new Date(this.finished);
-    }
 
     finish() {
         this.finished = Utils.today();

@@ -1,7 +1,7 @@
 import {Note} from "../model/note.js";
 import {Utils} from "../../../util/utils.js";
 
-export class NoteController {
+export class FormController {
 
     #resolveToHTML;
     #notebookService;
@@ -24,7 +24,7 @@ export class NoteController {
     }
 
     registerSaveListener() {
-        document.querySelector(".form_submit").addEventListener("click", async (event) => {
+        document.querySelector("form").addEventListener("submit", async (event) => {
             event.preventDefault();
             const title = document.querySelector(".form_title_input").value;
             const text = document.querySelector(".form_text_input").value;
@@ -38,21 +38,18 @@ export class NoteController {
 
             if(note._id == null) {
                 await this.#notebookService.addNote(note);
-                await this.backToIndex();
             } else {
                 await this.#notebookService.updateNote(note);
-                await this.backToIndex();
             }
-
-
+            await this.backToIndex();
         });
     }
 
     registerValidationListeners() {
         const title = document.querySelector(".form_title_input");
-        title.addEventListener("input", () => {
-            if (title.validity.tooShort) {
-                title.setCustomValidity("Das soll eine Notiz sein? Zu kurz! Gib dir Mühe!");
+        title.addEventListener("invalid", () => {
+            if (title.validity.valueMissing || title.validity.tooShort) {
+                title.setCustomValidity("Bitte gib einen Titel mit mindestens 3 Zeichen ein!");
             } else {
                 title.setCustomValidity("");
             }

@@ -11,7 +11,6 @@ export class NotebookService {
 
     async loadNotes() {
         return await this.#httpService.ajax("GET", "/notebook/notes/");
-        //return this.#notebookStorage.loadNotes();
     }
 
     async loadNote(_id){

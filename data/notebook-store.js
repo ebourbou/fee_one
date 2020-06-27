@@ -6,7 +6,7 @@ export class NotebookStore {
     }
 
     async add(note) {
-        return await this.db.insert(note);
+        return this.db.insert(note);
     }
 
     async update(note) {
@@ -18,7 +18,6 @@ export class NotebookStore {
     }
 
     async all() {
-        //return await this.db.cfind({orderedBy : created}).sort({ orderDate: -1 }).exec();
         return await this.db.find({});
     }
 }

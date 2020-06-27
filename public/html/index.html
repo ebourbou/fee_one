@@ -16,7 +16,7 @@
                 <label class="item_due label">{{asDate due}}</label>
                 <label class="item_title label">{{title}}</label>
                 <span class="item_importance">
-                    {{#icons importance}}{{/icons}}
+                    {{#showStars importance}}{{/showStars}}
                 </span>
                 <div class = "item_finished">
                     <input type="checkbox" id="finished" {{#if finished}} checked disabled="disabled" {{/if}}/>

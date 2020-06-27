@@ -20,11 +20,6 @@ export class NotebookController {
         document.getElementById("theme").addEventListener("change", () => {
             sessionStorage.setItem("theme", document.getElementById("theme").value);
             document.body.classList.toggle("dark-theme");
-            let icons = document.querySelectorAll(".item_importance_icon");
-            icons.forEach((icon) => {
-                icon.classList.toggle("item_importance_icon");
-                icon.classList.toggle("item_importance_icon_dark");
-            });
         });
     }
 

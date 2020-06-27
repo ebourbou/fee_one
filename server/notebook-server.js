@@ -23,6 +23,7 @@ export class NotebookServer {
         } else {
             await this.#store.add(req.body);
         }
+        res.end();
     }
 
     async updateNote(req, res) {
@@ -31,6 +32,7 @@ export class NotebookServer {
         } else {
             await this.#store.update(req.body);
         }
+        res.end();
     }
 
 }

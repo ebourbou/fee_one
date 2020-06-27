@@ -12,6 +12,6 @@ Handlebars.registerHelper("formatDate", function (date) {
 Handlebars.registerHelper('icons', function(importance, block) {
     let concatIcons = "";
     for(let i = 0; i <= importance; ++i)
-        concatIcons  = concatIcons + block.fn(i);
+        concatIcons  = concatIcons + "&#9733";
     return concatIcons;
 });

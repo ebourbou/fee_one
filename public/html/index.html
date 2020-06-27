@@ -6,7 +6,7 @@
             rel="stylesheet"
     />
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../img/party.gif" type="image/gif">
+    <link rel="icon" href="../img/star.jpg" type="image/gif">
     <meta charset="UTF-8">
     <title>FEE One Note App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" defer></script>
@@ -16,7 +16,7 @@
                 <label class="item_due label">{{asDate due}}</label>
                 <label class="item_title label">{{title}}</label>
                 <span class="item_importance">
-                    {{#icons importance}}<img class="item_importance_icon" src="../img/lightning.png"/>{{/icons}}
+                    {{#icons importance}}{{/icons}}
                 </span>
                 <div class = "item_finished">
                     <input type="checkbox" id="finished" {{#if finished}} checked disabled="disabled" {{/if}}/>

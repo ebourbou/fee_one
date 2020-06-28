@@ -1,10 +1,6 @@
 
 export class Utils {
 
-    static random() {
-        return Math.random() * (1000000 - 1) + 1;
-    }
-
     static today() {
         const now = new Date();
         now.setHours(0, 0, 0, 0);
@@ -16,7 +12,7 @@ export class Utils {
         const todayAsDayNumber = Math.round(Date.parse(this.dateAsDDMMYYYYString(Utils.today())) / (1000*60*60*24));
         const inputAsDayNumber = Math.round(Date.parse(date) / (1000*60*60*24));
         const dateDiff = (inputAsDayNumber - todayAsDayNumber ) ;
-        if (dateDiff == 0) {
+        if (dateDiff === 0) {
             return "Heute";
         } else if (dateDiff > 0 && dateDiff < 7) {
             return "Nächsten " + (Utils.dayName(Math.abs(dateDiff)));

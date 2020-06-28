@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import {NotebookRoutes} from "./routes/notebook_routes.js";
-import {NotebookServer} from "./server/notebook-server.js";
+import {NotebookController} from "./controller/notebook-controller.js";
 import {NedbNotebookStore} from "./data/nedb-notebook-store.js";
 import {Constants} from "./util/constants.js";
 
@@ -23,7 +23,7 @@ class ServerBootstrapper {
         app.use(cors());
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(bodyParser.json());
-        app.use("/notebook", NotebookRoutes.init(new NotebookServer(new NedbNotebookStore())));
+        app.use("/notebook", NotebookRoutes.init(new NotebookController(new NedbNotebookStore())));
         app.use(ServerBootstrapper.notFoundMiddleware);
         app.use(ServerBootstrapper.errorHandlerMiddleware);
 

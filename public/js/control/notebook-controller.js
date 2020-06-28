@@ -1,4 +1,3 @@
-import { Utils } from '../../../util/utils.js';
 import {Constants} from "../../../util/constants.js";
 
 export class NotebookController {
@@ -40,7 +39,7 @@ export class NotebookController {
 
     registerFinishListener() {
         document.querySelector(".items").addEventListener("click", async (event) => {
-            if (event.target.type == "checkbox"){
+            if (event.target.type === "checkbox"){
                 await this.#notebookService.finishNote(event.target.closest(".item").dataset.id);
                 this.renderNotes(await this.#notebookService.loadNotes());
             }

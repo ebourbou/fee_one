@@ -1,7 +1,5 @@
-import {Note} from "../public/js/model/note.js";
-import {Utils} from "../util/utils.js";
 
-export class NotebookServer {
+export class NotebookController {
 
     #store;
 

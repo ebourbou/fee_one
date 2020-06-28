@@ -1,8 +1,8 @@
 import Datastore from 'nedb-promise'
 
-export class NotebookStore {
+export class NedbNotebookStore {
     constructor() {
-        this.db = new Datastore({filename: './data/notebook.db', autoload: true});
+        this.db = new Datastore({filename: './data/nedb-notebook.db', autoload: true});
     }
 
     async add(note) {

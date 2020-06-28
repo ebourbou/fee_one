@@ -1,30 +1,40 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import {notebookRoutes} from "./routes/notebook_routes.js";
+import {NotebookRoutes} from "./routes/notebook_routes.js";
+import {NotebookServer} from "./server/notebook-server.js";
+import {NedbNotebookStore} from "./data/nedb-notebook-store.js";
 
-const app = express();
+class ServerBootstrapper {
 
-// middlewares
-function notFound(req,res, next) {
-    res.setHeader("Content-Type", 'text/html');
-    res.status(404).send("Confound it all!  We could not find ye's page! ")
+    #app = express();
+
+    notFoundMiddleware(req, res, next) {
+        res.setHeader("Content-Type", 'text/html');
+        res.status(404).send("Page not found. Try something else.")
+    }
+
+    errorHandlerMiddleware(err, req, res, next) {
+        console.log(err);
+        res.status(500).end(err.message);
+    }
+
+    start() {
+        this.#app.use(cors());
+        this.#app.use(bodyParser.urlencoded({ extended: false }));
+        this.#app.use(bodyParser.json());
+        this.#app.use("/notebook", NotebookRoutes.init(new NotebookServer(new NedbNotebookStore())));
+        this.#app.use(this.notFoundMiddleware);
+        this.#app.use(this.errorHandlerMiddleware);
+
+        const hostname = '127.0.0.1';
+        const port = 3001;
+        this.#app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
+    }
+
 }
 
-function errorHandler(err, req, res, next) {
-    console.log(err);
-    res.status(500).end(err.message);
-}
+const bootstrapper = new ServerBootstrapper;
+bootstrapper.start();
 
-//
-app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use("/notebook", notebookRoutes);
-app.use(notFound);
-app.use(errorHandler);
-
-const hostname = '127.0.0.1';
-const port = 3001;
-app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
 

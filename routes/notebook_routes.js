@@ -1,14 +1,14 @@
 import express from 'express';
-const router = express.Router();
 
-import {NotebookServer} from "../server/notebook-server.js";
-import {NotebookStore} from "../data/notebook-store.js";
+export class NotebookRoutes {
 
-const server = new NotebookServer(new NotebookStore());
+    static init(notebookServer) {
+        const router = express.Router();
+        router.get("/notes", notebookServer.loadNotes.bind(notebookServer));
+        router.get("/note/:_id/", notebookServer.loadNote.bind(notebookServer));
+        router.put("/note/:_id/", notebookServer.updateNote.bind(notebookServer));
+        router.post("/note", notebookServer.addNote.bind(notebookServer));
+        return router;
+    }
 
-router.get("/notes", server.loadNotes.bind(server));
-router.get("/note/:_id/", server.loadNote.bind(server));
-router.put("/note/:_id/", server.updateNote.bind(server));
-router.post("/note", server.addNote.bind(server));
-
-export const notebookRoutes = router;
+}

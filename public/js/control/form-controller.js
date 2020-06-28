@@ -75,14 +75,15 @@ export class FormController {
         return note;
     }
 
-    async init() {
-
-        if (sessionStorage.getItem("theme") === "night") {
+    toggleThemeFromSessionStorage() {
+        if (sessionStorage.getItem("theme") === "dark") {
             document.body.classList.toggle("dark-theme");
         }
+    }
 
+    async init() {
+        this.toggleThemeFromSessionStorage();
         document.body.innerHTML = this.#resolveToHTML(await this.getCurrentOrNewNote());
-
         this.registerValidationListeners();
         this.registerSaveListener();
         this.registerCancelListener();

@@ -97,7 +97,15 @@ export class NotebookController {
         })
     }
 
+    toggleThemeFromSessionStorage() {
+        if (sessionStorage.getItem("theme") === "dark") {
+            document.getElementById("theme").value = 'dark';
+            document.body.classList.toggle("dark-theme");
+        }
+    }
+
     async init() {
+        this.toggleThemeFromSessionStorage();
         this.registerThemeListener();
         this.registerSortByCreated();
         this.registerSortByFinish();

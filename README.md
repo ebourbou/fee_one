@@ -1,14 +1,19 @@
-nothing to see yet
 
 
+#CAS FEE Projekt 1 -  Notebook
 
-## Issues
-1. Ein Klick auf den Schatten des Edit-Buttons (innerhalb eines Items) ist offensichtlich ausserhalb der Items
+## Installation und Start
 
-```javascript
-    document.getElementById("items").addEventListener("click", (event) => {
-             const itemId = event.target.closest(".item").dataset.id;
-             console.log(itemId)
-         }
-    )
 ```
+npm install
+
+npm start
+
+```
+und dann die Index-Seite aufrufen:  
+```
+public/html/index.html
+```
+als Beispiel: http://localhost:63342/fee_one/public/html/index.html
+## Inhalt
+Funktionalität, Anforderungen und Layout sind [hier](./doc/Projekt_1.pdf) beschrieben

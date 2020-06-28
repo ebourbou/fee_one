@@ -27,7 +27,10 @@ class ServerBootstrapper {
         app.use(ServerBootstrapper.notFoundMiddleware);
         app.use(ServerBootstrapper.errorHandlerMiddleware);
 
-        app.listen(Constants.PORT, Constants.HOST, () => {  console.log(`Server running at http://${Constants.HOST}:${Constants.PORT}/`); });
+        app.listen(Constants.PORT, Constants.HOST, () => {
+            console.log(`Server running at http://${Constants.HOST}:${Constants.PORT}/`);
+            console.log("Point your browser to " + process.cwd() + "/public/html/index.html"); // __dirname nicht vorhanden mit --experimental-modules flag
+        });
     }
 
 }

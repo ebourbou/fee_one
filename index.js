@@ -4,6 +4,7 @@ import cors from 'cors';
 import {NotebookRoutes} from "./routes/notebook_routes.js";
 import {NotebookServer} from "./server/notebook-server.js";
 import {NedbNotebookStore} from "./data/nedb-notebook-store.js";
+import {Constants} from "./util/constants.js";
 
 class ServerBootstrapper {
 
@@ -26,9 +27,7 @@ class ServerBootstrapper {
         app.use(ServerBootstrapper.notFoundMiddleware);
         app.use(ServerBootstrapper.errorHandlerMiddleware);
 
-        const hostname = '127.0.0.1';
-        const port = 3001;
-        app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
+        app.listen(Constants.PORT, Constants.HOST, () => {  console.log(`Server running at http://${Constants.HOST}:${Constants.PORT}/`); });
     }
 
 }

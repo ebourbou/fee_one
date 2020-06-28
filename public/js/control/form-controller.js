@@ -1,5 +1,6 @@
 import {Note} from "../model/note.js";
 import {Utils} from "../../../util/utils.js";
+import {Constants} from "../../../util/constants.js";
 
 export class FormController {
 
@@ -19,7 +20,7 @@ export class FormController {
     }
 
     backToIndex() {
-        sessionStorage.removeItem("itemId");
+        sessionStorage.removeItem(Constants.ITEM_ID);
         location.href = "index.html";
     }
 
@@ -67,8 +68,8 @@ export class FormController {
 
     async getCurrentOrNewNote() {
         let note;
-        if (sessionStorage.getItem("itemId")) {
-            note = await this.#notebookService.loadNote(sessionStorage.getItem("itemId"));
+        if (sessionStorage.getItem(Constants.ITEM_ID)) {
+            note = await this.#notebookService.loadNote(sessionStorage.getItem(Constants.ITEM_ID));
         } else {
             note = new Note();
         }
@@ -76,7 +77,7 @@ export class FormController {
     }
 
     toggleThemeFromSessionStorage() {
-        if (sessionStorage.getItem("theme") === "dark") {
+        if (sessionStorage.getItem(Constants.THEME_KEY) === Constants.DARK_THEME) {
             document.body.classList.toggle("dark-theme");
         }
     }

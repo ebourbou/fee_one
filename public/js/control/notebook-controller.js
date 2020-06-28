@@ -1,4 +1,5 @@
 import { Utils } from '../../../util/utils.js';
+import {Constants} from "../../../util/constants.js";
 
 export class NotebookController {
 
@@ -18,21 +19,21 @@ export class NotebookController {
 
     registerThemeListener() {
         document.getElementById("theme").addEventListener("change", () => {
-            sessionStorage.setItem("theme", document.getElementById("theme").value);
+            sessionStorage.setItem(Constants.THEME_KEY, document.getElementById("theme").value);
             document.body.classList.toggle("dark-theme");
         });
     }
 
     registerCreateNewNoteListener() {
         document.querySelector(".create").addEventListener("click", () => {
-            sessionStorage.removeItem("itemId");
+            sessionStorage.removeItem(Constants.ITEM_ID);
         });
     }
 
     registerEditListener() {
         document.querySelector(".items").addEventListener("click",  (event) => {
                 const itemId = event.target.closest(".item").dataset.id;
-                sessionStorage.setItem("itemId", itemId);
+                sessionStorage.setItem(Constants.ITEM_ID, itemId);
             }
         )
     }
@@ -98,7 +99,7 @@ export class NotebookController {
     }
 
     toggleThemeFromSessionStorage() {
-        if (sessionStorage.getItem("theme") === "dark") {
+        if (sessionStorage.getItem(Constants.THEME_KEY) === Constants.DARK_THEME) {
             document.getElementById("theme").value = 'dark';
             document.body.classList.toggle("dark-theme");
         }

@@ -7,34 +7,32 @@ import {NedbNotebookStore} from "./data/nedb-notebook-store.js";
 
 class ServerBootstrapper {
 
-    #app = express();
-
-    notFoundMiddleware(req, res, next) {
+    static notFoundMiddleware(req, res, next) {
         res.setHeader("Content-Type", 'text/html');
-        res.status(404).send("Page not found. Try something else.")
+        res.status(404).send("Page not found. Try somewhere else.")
     }
 
-    errorHandlerMiddleware(err, req, res, next) {
+    static errorHandlerMiddleware(err, req, res, next) {
         console.log(err);
         res.status(500).end(err.message);
     }
 
-    start() {
-        this.#app.use(cors());
-        this.#app.use(bodyParser.urlencoded({ extended: false }));
-        this.#app.use(bodyParser.json());
-        this.#app.use("/notebook", NotebookRoutes.init(new NotebookServer(new NedbNotebookStore())));
-        this.#app.use(this.notFoundMiddleware);
-        this.#app.use(this.errorHandlerMiddleware);
+    static start() {
+        const app = express();
+        app.use(cors());
+        app.use(bodyParser.urlencoded({ extended: false }));
+        app.use(bodyParser.json());
+        app.use("/notebook", NotebookRoutes.init(new NotebookServer(new NedbNotebookStore())));
+        app.use(ServerBootstrapper.notFoundMiddleware);
+        app.use(ServerBootstrapper.errorHandlerMiddleware);
 
         const hostname = '127.0.0.1';
         const port = 3001;
-        this.#app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
+        app.listen(port, hostname, () => {  console.log(`Server running at http://${hostname}:${port}/`); });
     }
 
 }
 
-const bootstrapper = new ServerBootstrapper;
-bootstrapper.start();
+ServerBootstrapper.start();
 
 

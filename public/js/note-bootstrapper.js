@@ -4,8 +4,7 @@ import {FormController} from "./control/form-controller.js";
 
 class NoteBootstrapper {
     static start() {
-        const notebookService = new NotebookService();
-        new FormController(notebookService).init();
+        new FormController(new NotebookService()).init();
     }
 }
 
